@@ -1,0 +1,49 @@
+<p>my-component works!</p>
+
+
+<!-- Databinding usind String interpolatin, varibles & methods can be accessed -->
+<!-- it must be a string -->
+<h1>{{"Hey"}} {{ name }} you are {{ getStatus()}}</h1>
+
+<!-- Property binding [attr] : [] means we are acessing properties of the object via dom instead of html -->
+<!-- it can be boolean,string or anything else-->
+<!-- In "" you can write typescript cod, generally lot of code should not be written there-->
+
+<!-- Event binding (event-name): () makes sure the ts code written in "" will be executed on that event -->
+<button class="btn btn-primary" [disabled]="isDisabled()" (click)="onCLickEnable()"> Get Online </button>
+<hr>
+<!-- $event is reserved variable used to pass data regarding the event -->
+<input type="text" class="form-control" (input)="onUpdateTodo($event)">
+
+<p>{{todo}}</p>
+
+<!-- TWO WAY DATA BINDING -->
+<!-- onEvent it will change todo variable & on change in todo variable, this input field will also change -->
+<input type="text" class="form-control" [(ngModel)]="todo">
+
+<hr>
+<h4>Structural Directives</h4>
+
+<!-- Structural Directives (If else) -->
+<input type="text" class="form-control" [(ngModel)]="todoElement">
+<button class="btn btn-primary" [disabled]="todoElement===''" (click)="onAddTodo()"> Add Task </button>
+<p *ngIf='addTodoClicked ; else noTask'> Task is: {{todoElement}}</p>
+
+<!-- #noTask is marker we created which is used to mark places in the DOM -->
+<ng-template #noTask> Not task is added</ng-template>
+
+<h6>Todo List: </h6>
+
+<p *ngFor="let task of todoList; let i = index"> {{i+1}} {{task}}</p>
+
+
+<hr>
+<h4>Attribute Directives</h4>
+
+<!-- Attribute Directives -->
+<!-- Since ngStyle is using propertybinding we nedded [] -->
+<p [ngStyle]="{backgroundColor: getActiveStatus()}"> Active Status using ngStyle</p>
+<hr>
+<!-- ngStyle can change css, ngClass can add remove css classes -->
+<!-- ngStyle needs key - value, classname: activated if -->
+<p [ngClass]="{active: addTodoClicked === true && todoElement!=''}"> Active Status using ngClass</p>
